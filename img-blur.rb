@@ -4,7 +4,9 @@ class Image
   end 
 
   def output_image
-    @array.each {|x| puts x.join("")}
+    # iterate for each array inside the array
+    # convert each array to string
+    @array.each {|arr| puts arr.join("")}
   end  
 end
 
