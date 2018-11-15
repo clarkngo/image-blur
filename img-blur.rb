@@ -1,21 +1,19 @@
 class Image
-  def initialize(array)
-    @array = array
+  def initialize(array_2d)
+    @array_2d = array_2d
+    @coordinates = Array.new
+    @blur_coordinates = Array.new
   end 
 
   def find_coordinates
-    count = 0
-    @coordinates = Array.new
-    @array.each {|arr| 
-      if arr.index(1)
-        @coordinates << [count,arr.index(1)]
+    for i in 0..@array_2d.length - 1 do
+      for j in 0..@array_2d[i].length - 1 do
+          @coordinates << [i, j] if @array_2d[i][j] == 1
       end
-      count = count + 1
-    }
+    end
   end
 
   def blur_coordinates
-    @blur_coordinates = Array.new
     @coordinates.each {|coor|
       @blur_coordinates << [ coor[0] -1, coor[1] ]
       @blur_coordinates << [ coor[0], coor[1] - 1 ]
@@ -30,7 +28,7 @@ class Image
 
   def filter_blur_coordinates
     @blur_coordinates.each {|blur_coor|
-      if blur_coor[0] == -1 || blur_coor[1] == -1 || blur_coor[0] == @array.length || blur_coor[1] == @array.length
+      if blur_coor[0] == -1 || blur_coor[1] == -1 || blur_coor[0] == @array_2d.length || blur_coor[1] == @array_2d.length
         blur_coor.pop(2)
       end
     }
@@ -42,14 +40,14 @@ class Image
 
   def image_blur
     @blur_coordinates.each {|blur_coor|
-      @array[blur_coor[0]][blur_coor[1]] = 1
+      @array_2d[blur_coor[0]][blur_coor[1]] = 1
     }
   end
 
   def output_image
-    # iterate for each array inside the array
+    # iterate for each array inside the 2d array
     # convert each array to string
-    @array.each {|arr| puts arr.join("")}
+    @array_2d.each {|arr| puts arr.join("")}
   end  
 end
 
@@ -66,3 +64,4 @@ image.filter_blur_coordinates
 image.remove_nil_blur_coordinates
 image.image_blur
 image.output_image
+
