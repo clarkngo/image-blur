@@ -19,7 +19,7 @@ class Image
   end
 
 =begin
-  def min_max_blur_coordinates
+  def blur_coordinates
     @coordinates.each {|coor|
       puts coor.inspect
       distance = @blur_size
@@ -54,7 +54,7 @@ class Image
     puts @blur_coordinates.inspect
   end
 =end
-  def min_max_blur_coordinates
+  def blur_coordinates
     for m in 0..@coordinates.length - 1 do
       x = @coordinates[m][0]
       y = @coordinates[m][1]
@@ -113,7 +113,7 @@ image = Image.new([
 ])
 image.find_coordinates
 image.blur_size(3)
-image.min_max_blur_coordinates
+image.blur_coordinates
 image.remove_duplicates_blur_coordinates
 image.filter_blur_coordinates
 image.remove_nil_blur_coordinates
