@@ -7,4 +7,5 @@ class Image
 
   def blur
     return Image.new(@data)
+  end
 end
