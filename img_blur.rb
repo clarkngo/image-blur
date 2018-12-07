@@ -18,22 +18,25 @@ class Image
     @blur_size = size
   end
 
-=begin
+
   def blur_coordinates
     @coordinates.each {|coor|
       puts coor.inspect
       distance = @blur_size
       steps = 4 * @blur_size
-      f = :+
-      g = :+
       for m in (distance).downto(1)
+        f = :+
+        g = :+
         coor_max_y = coor[0] + distance
         coor_min_y = coor[0] - distance
         coor_max_x = coor[1] + distance
         coor_min_x = coor[1] - distance
+        puts "y max #{coor_max_y} and  y min #{coor_min_y}"
+        puts "x max #{coor_max_x} and  x min #{coor_min_x}"
         y = coor[0]
         x = coor[1] - distance
         for i in 1..steps
+          puts "#{y} and #{x}"
           @blur_coordinates.push([y,x])
           y = y.public_send(f, 1)
           if y == coor_max_y
@@ -48,24 +51,10 @@ class Image
             g = :+
           end
         end
+        puts "step"
         distance = distance - 1
       end
     }
-    puts @blur_coordinates.inspect
-  end
-=end
-  def blur_coordinates
-    for m in 0..@coordinates.length - 1 do
-      x = @coordinates[m][0]
-      y = @coordinates[m][1]
-      puts x
-      puts y
-      for i in x-@blur_size..x do
-        for j in y-@blur_size..y-@blur_size + 2 * i -2 do
-          @blur_coordinates.push([i, y - (i - j)])
-        end
-      end
-    end
     puts @blur_coordinates.inspect
   end
 
@@ -104,11 +93,11 @@ image = Image.new([
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ])
 image.find_coordinates
