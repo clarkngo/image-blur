@@ -60,8 +60,8 @@ class Image
       y = @coordinates[m][1]
       puts x
       puts y
-      for i in x-@blur_size..x - 1 do
-        for j in y-@blur_size..2 * i - 3 do
+      for i in x-@blur_size..x do
+        for j in y-@blur_size..y-@blur_size + 2 * i -2 do
           @blur_coordinates.push([i, y - (i - j)])
         end
       end
@@ -112,7 +112,7 @@ image = Image.new([
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ])
 image.find_coordinates
-image.blur_size(3)
+image.blur_size(2)
 image.blur_coordinates
 image.remove_duplicates_blur_coordinates
 image.filter_blur_coordinates
